@@ -70,11 +70,58 @@ const members = [
 result = members.reduce((accu, current)=>accu+current.age,0)/members.length;
 console.log(result);
 
+
+
+
+
 // 4d d) Extra Imagine you were to create a system that could count votes for the presidential election in the USA. Given this array of votes: var votes = [ "Biden","Trump","Biden","Biden","Trump","Trump","Biden","None"]; Create a reduce function that will return a single object like {Clinton: 3, Trump: 4, None: 1 }
 console.log('4d');
 const votes = [ "Biden","Trump","Biden","Biden","Trump","Trump","Biden","None"];
+
 result = votes.reduce((accu, candidate)=>{
     accu[candidate] = accu[candidate]? accu[candidate] + 1: 1;
     return accu;
 },{});
 console.log(result);
+
+// Some more cool reduce cases:
+// Mapping with Reduce and the spread operator ...
+// In this case our initial value is an empty array, and upon each iteration we can return an array with its previous value, plus the newest value added to the end of our array.
+const people = [
+    { id: "1", name: "Leigh", age: 35 },
+    { id: "2", name: "Jenny", age: 30 },
+    { id: "3", name: "Heather", age: 28 },
+];
+result = people.reduce((acc, person) => [...acc, person.name], []);
+console.log(result);
+
+// Using the spread operator to turn a list of objects into an object of key,value entries
+result = people.reduce((acc, person) => {
+    return { ...acc, [person.name]: person };
+}, {});
+
+console.log(result);
+
+// recursive unpacking of nested arrays
+const folders = [
+    "index.js",
+    ["flatten.js", "map.js"],
+    ["any.js", ["all.js", "count.js"]],
+  ];
+  
+  function flatten(acc, element) {
+    if (Array.isArray(element)) {
+      return element.reduce(flatten, acc);
+    }
+    return [...acc, element];
+  }
+  
+  result = folders.reduce(flatten, []);
+  console.log(result);
+
+// Template literals
+let a = 5;
+let b = 10;
+console.log(`A + B is ${a + b} and
+not ${2 * a + b}.`);
+
